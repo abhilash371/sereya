@@ -1,5 +1,7 @@
-// API Configuration
-const API_BASE_URL = 'http://localhost:5000/api';
+// API Configuration - Automatically detect environment
+const API_BASE_URL = window.location.hostname === 'localhost' 
+  ? 'http://localhost:5000/api'
+  : `${window.location.protocol}//${window.location.hostname}/api`;
 
 // Get auth token from localStorage
 function getAuthToken() {
