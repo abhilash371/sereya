@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login/Signup - Sereya</title>
+  <link rel="stylesheet" href="css/auth.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <div class="auth-container">
+    <div class="auth-box">
+      <!-- Logo -->
+      <div class="auth-logo">
+        <div class="logo-emoji">🧴</div>
+        <h1>Sereya</h1>
+        <p class="tagline">Your Intelligent Skincare Companion</p>
+      </div>
+
+      <!-- Login Form -->
+      <div class="auth-form" id="loginForm">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+          <h2>Login</h2>
+          <button type="button" id="themeToggle" onclick="toggleTheme()" style="background: rgba(255,255,255,0.2); border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold;">🌙 Dark</button>
+        </div>
+        <form id="loginFormElement">
+          <div class="form-group">
+            <label for="loginEmail">Email</label>
+            <input 
+              type="email" 
+              id="loginEmail" 
+              name="email" 
+              placeholder="your@email.com" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="loginPassword">Password</label>
+            <input 
+              type="password" 
+              id="loginPassword" 
+              name="password" 
+              placeholder="At least 6 characters" 
+              required
+            >
+          </div>
+
+          <button type="submit" class="auth-button">Login →</button>
+        </form>
+
+        <div class="form-divider">
+          <span>Don't have an account?</span>
+        </div>
+
+        <button class="toggle-button" onclick="toggleForms()">
+          Sign Up Here
+        </button>
+
+        <div id="loginError" class="error-message"></div>
+        <div id="loginLoading" class="loading-message" style="display: none;">
+          ⏳ Logging in...
+        </div>
+      </div>
+
+      <!-- Signup Form -->
+      <div class="auth-form" id="signupForm" style="display: none;">
+        <h2>Create Account</h2>
+        <form id="signupFormElement">
+          <div class="form-group">
+            <label for="signupName">Full Name</label>
+            <input 
+              type="text" 
+              id="signupName" 
+              name="name" 
+              placeholder="Your Name" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="signupEmail">Email</label>
+            <input 
+              type="email" 
+              id="signupEmail" 
+              name="email" 
+              placeholder="your@email.com" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="signupPassword">Password</label>
+            <input 
+              type="password" 
+              id="signupPassword" 
+              name="password" 
+              placeholder="At least 6 characters" 
+              required
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="signupConfirm">Confirm Password</label>
+            <input 
+              type="password" 
+              id="signupConfirm" 
+              name="passwordConfirm" 
+              placeholder="Repeat your password" 
+              required
+            >
+          </div>
+
+          <div class="terms">
+            <label>
+              <input type="checkbox" id="agreeTerms" required>
+              I agree to the Terms and Privacy Policy
+            </label>
+          </div>
+
+          <button type="submit" class="auth-button">Create Account →</button>
+        </form>
+
+        <div class="form-divider">
+          <span>Already have an account?</span>
+        </div>
+
+        <button class="toggle-button" onclick="toggleForms()">
+          Login Here
+        </button>
+
+        <div id="signupError" class="error-message"></div>
+        <div id="signupLoading" class="loading-message" style="display: none;">
+          ⏳ Creating account...
+        </div>
+      </div>
+
+      <!-- Features Preview -->
+      <div class="features-preview">
+        <h3>What You'll Get:</h3>
+        <div class="preview-items">
+          <div class="preview-item">
+            <span class="icon">🧬</span>
+            <span>Personalized Skin Quiz</span>
+          </div>
+          <div class="preview-item">
+            <span class="icon">🌅</span>
+            <span>Daily Routines</span>
+          </div>
+          <div class="preview-item">
+            <span class="icon">📋</span>
+            <span>Ingredient Guides</span>
+          </div>
+          <div class="preview-item">
+            <span class="icon">⚠️</span>
+            <span>Safety Warnings</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/auth.js"></script>
+</body>
+</html>

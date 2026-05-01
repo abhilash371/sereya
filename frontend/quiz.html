@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Skin Quiz - Sereya</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">🧴 Sereya</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="quiz.html" class="active">Skin Quiz</a>
+        <a href="recommendations.html">Recommendations</a>
+        <button id="themeToggle" onclick="toggleTheme()" title="Switch Theme" style="background: rgba(51,51,51,0.1); border: none; padding: 0.6rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">🌙 Dark</button>
+        <div class="user-menu">
+          <span id="userNameDisplay" class="user-name"></span>
+          <button id="logoutBtn" class="logout-button" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="quiz-section">
+      <h1>✨ Comprehensive Skin Quiz</h1>
+      <p class="quiz-intro">Answer these questions to get your personalized skincare routine</p>
+
+      <form id="quizForm" class="quiz-form">
+        <!-- Skin Type -->
+        <div class="form-group">
+          <label for="skinType"><strong>1. What is your skin type?</strong></label>
+          <select id="skinType" name="skinType" required>
+            <option value="">-- Select --</option>
+            <option value="oily">Oily (Shiny, prone to breakouts)</option>
+            <option value="dry">Dry (Flaky, tight, dull)</option>
+            <option value="combination">Combination (Oily T-zone, dry cheeks)</option>
+            <option value="sensitive">Sensitive (Easily irritated, reactive)</option>
+          </select>
+        </div>
+
+        <!-- Age Group -->
+        <div class="form-group">
+          <label for="ageGroup"><strong>2. What is your age group?</strong></label>
+          <select id="ageGroup" name="ageGroup" required>
+            <option value="">-- Select --</option>
+            <option value="18-25">18-25</option>
+            <option value="25-35">25-35</option>
+            <option value="35-45">35-45</option>
+            <option value="45-55">45-55</option>
+            <option value="55+">55+</option>
+          </select>
+        </div>
+
+        <!-- Acne -->
+        <div class="form-group">
+          <label><strong>3. Do you experience acne?</strong></label>
+          <div class="radio-group">
+            <label>
+              <input type="radio" name="hasAcne" value="true" onchange="toggleAcneSeverity()"> Yes
+            </label>
+            <label>
+              <input type="radio" name="hasAcne" value="false" onchange="toggleAcneSeverity()"> No
+            </label>
+          </div>
+        </div>
+
+        <!-- Acne Severity (conditional) -->
+        <div class="form-group" id="acneSeverityGroup" style="display: none;">
+          <label for="acneSeverity"><strong>If yes, how severe?</strong></label>
+          <select id="acneSeverity" name="acneSeverity">
+            <option value="mild"> Mild (Occasional pimples)</option>
+            <option value="moderate"> Moderate (Regular breakouts)</option>
+            <option value="severe"> Severe (Cystic acne, significant impact)</option>
+          </select>
+        </div>
+
+        <!-- Sensitivity Level -->
+        <div class="form-group">
+          <label for="sensitivityLevel"><strong>4. How sensitive is your skin?</strong></label>
+          <select id="sensitivityLevel" name="sensitivityLevel" required>
+            <option value="">-- Select --</option>
+            <option value="low"> Low (Tolerates most products)</option>
+            <option value="medium"> Medium (Occasional irritation)</option>
+            <option value="high"> High (Easily irritated, reactive)</option>
+          </select>
+        </div>
+
+        <!-- Pigmentation -->
+        <div class="form-group">
+          <label for="pigmentation"><strong>5. Do you have dark spots or pigmentation issues?</strong></label>
+          <select id="pigmentation" name="pigmentation" required>
+            <option value="">-- Select --</option>
+            <option value="none">🌟 None (Clear, even tone)</option>
+            <option value="mild"> Mild (Few spots)</option>
+            <option value="moderate"> Moderate (Several dark spots)</option>
+            <option value="significant"> Significant (Melasma or extensive spots)</option>
+          </select>
+        </div>
+
+        <!-- Sun Exposure -->
+        <div class="form-group">
+          <label for="sunExposure"><strong>6. How much sun exposure do you get?</strong></label>
+          <select id="sunExposure" name="sunExposure" required>
+            <option value="">-- Select --</option>
+            <option value="low"> Low (Indoor work, minimal sun)</option>
+            <option value="moderate"> Moderate (Regular outdoor activities)</option>
+            <option value="high"> High (Beach, outdoor sports, sunny climate)</option>
+          </select>
+        </div>
+
+        <!-- Current Concerns -->
+        <div class="form-group">
+          <label><strong>7. Any other concerns? (Select all that apply)</strong></label>
+          <div class="checkbox-group">
+            <label>
+              <input type="checkbox" name="currentConcerns" value="redness"> Redness
+            </label>
+            <label>
+              <input type="checkbox" name="currentConcerns" value="texture"> Texture/Roughness
+            </label>
+            <label>
+              <input type="checkbox" name="currentConcerns" value="pores"> Large Pores
+            </label>
+            <label>
+              <input type="checkbox" name="currentConcerns" value="wrinkles"> Fine Lines/Wrinkles
+            </label>
+            <label>
+              <input type="checkbox" name="currentConcerns" value="dullness"> Dullness
+            </label>
+          </div>
+        </div>
+
+        <!-- Allergies -->
+        <div class="form-group">
+          <label for="allergies"><strong>8. Any known allergies or ingredients to avoid?</strong></label>
+          <input type="text" id="allergies" name="allergies" placeholder="e.g., fragrances, sulfates, essential oils">
+        </div>
+
+        <button type="submit" class="submit-button">Get My Recommendations →</button>
+      </form>
+
+      <div id="loadingMessage" class="loading-message" style="display: none;">
+        <p>⏳ Analyzing your skin profile...</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>🧴 Sereya - Your personalized skincare companion | Always patch test before using new products</p>
+  </footer>
+
+  <script>
+    // API Configuration
+    const API_BASE_URL = 'http://localhost:5000/api';
+
+    // Get auth token from localStorage
+    function getAuthToken() {
+      return localStorage.getItem('authToken');
+    }
+
+    // Get headers with auth token
+    function getHeaders() {
+      const token = getAuthToken();
+      return {
+        'Content-Type': 'application/json',
+        ...(token && { 'Authorization': `Bearer ${token}` })
+      };
+    }
+  </script>
+  <script src="js/api.js"></script>
+  <script src="js/quiz.js"></script>
+  <script>
+    // Check authentication on page load
+    window.addEventListener('load', function() {
+      const token = localStorage.getItem('authToken');
+      const user = localStorage.getItem('user');
+      
+      if (!token) {
+        // Not logged in, redirect to auth
+        window.location.href = 'auth.html';
+        return;
+      }
+
+      // Display user name
+      if (user) {
+        const userData = JSON.parse(user);
+        document.getElementById('userNameDisplay').textContent = `${userData.name}`;
+      }
+    });
+
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        localStorage.removeItem('quizData');
+        localStorage.removeItem('recommendations');
+        window.location.href = 'auth.html';
+      }
+    }
+  </script>
+</body>
+</html>

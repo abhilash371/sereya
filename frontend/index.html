@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sereya - Intelligent Skincare Recommendations</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">🧴 Sereya</div>
+      <div class="nav-links">
+        <a href="index.html" class="active">Home</a>
+        <a href="quiz.html">Skin Quiz</a>
+        <a href="recommendations.html">Recommendations</a>
+        <button id="themeToggle" onclick="toggleTheme()" title="Switch Theme" style="background: rgba(51,51,51,0.1); border: none; padding: 0.6rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">🌙 Dark</button>
+        <div class="user-menu">
+          <span id="userNameDisplay" class="user-name"></span>
+          <button id="logoutBtn" class="logout-button" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to Sereya</h1>
+        <p class="tagline"> Intelligent Skincare Recommendations Based on Science</p>
+        <p class="description">
+          Get personalized skincare routines with ingredient-based guidance,
+          morning and night routines, and expert safety recommendations.
+        </p>
+        <a href="quiz.html" class="cta-button">Start Your Skin Quiz →</a>
+      </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+      <h2>Why Sereya?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="icon">🧬</div>
+          <h3>Science-Backed</h3>
+          <p>Ingredient recommendations based on dermatological research</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon"></div>
+          <h3>Personalized Routines</h3>
+          <p>Separate morning and night routines with timing guidance</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon"></div>
+          <h3>Safety First</h3>
+          <p>Comprehensive warnings about ingredient interactions</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon"></div>
+          <h3>Detailed Assessment</h3>
+          <p>Comprehensive quiz covering skin type, concerns, and sensitivity</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon"></div>
+          <h3>Weather Aware</h3>
+          <p>Routine adjustments based on climate and season</p>
+        </div>
+        <div class="feature-card">
+          <div class="icon"></div>
+          <h3>Educational</h3>
+          <p>Learn why each ingredient matters for your skin</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works">
+      <h2>How It Works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="step-number">1</div>
+          <h4>Take the Quiz</h4>
+          <p>Answer detailed questions about your skin</p>
+        </div>
+        <div class="step">
+          <div class="step-number">2</div>
+          <h4>Get Analysis</h4>
+          <p>Receive personalized recommendations</p>
+        </div>
+        <div class="step">
+          <div class="step-number">3</div>
+          <h4>Learn Ingredients</h4>
+          <p>Understand why each ingredient helps</p>
+        </div>
+        <div class="step">
+          <div class="step-number">4</div>
+          <h4>Follow Routine</h4>
+          <p>Apply morning and night routines with guidance</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Ingredient Spotlight -->
+    <section class="ingredient-spotlight">
+      <h2>Ingredient Spotlight</h2>
+      <div class="ingredient-cards">
+        <div class="ingredient-highlight">
+          <h4>Salicylic Acid</h4>
+          <p><strong>Best for:</strong> Acne, Oily Skin</p>
+          <p>Oil-soluble acid that penetrates pores to remove sebum and dead skin cells.</p>
+        </div>
+        <div class="ingredient-highlight">
+          <h4>Hyaluronic Acid</h4>
+          <p><strong>Best for:</strong> All Skin Types, Dryness</p>
+          <p>Holds 1000x its weight in water, drawing moisture into the skin.</p>
+        </div>
+        <div class="ingredient-highlight">
+          <h4>Retinol</h4>
+          <p><strong>Best for:</strong> Anti-Aging, Texture</p>
+          <p>Stimulates collagen production and increases cell turnover.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>🧴 Sereya - Your personalized skincare companion | Always consult a dermatologist for severe skin conditions</p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script>
+    // Check authentication on page load
+    window.addEventListener('load', function() {
+      const token = localStorage.getItem('authToken');
+      const user = localStorage.getItem('user');
+      
+      if (!token) {
+        // Not logged in, redirect to auth
+        window.location.href = 'auth.html';
+        return;
+      }
+
+      // Display user name
+      if (user) {
+        const userData = JSON.parse(user);
+        document.getElementById('userNameDisplay').textContent = `Welcome, ${userData.name}!`;
+      }
+    });
+
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        localStorage.removeItem('quizData');
+        localStorage.removeItem('recommendations');
+        window.location.href = 'auth.html';
+      }
+    }
+  </script>
+</body>
+</html>

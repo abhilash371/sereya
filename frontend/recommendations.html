@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your Recommendations - Sereya</title>
+  <link rel="stylesheet" href="css/style.css">
+  <script src="js/theme.js"></script>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="nav-container">
+      <div class="logo">🧴 Sereya</div>
+      <div class="nav-links">
+        <a href="index.html">Home</a>
+        <a href="quiz.html">Skin Quiz</a>
+        <a href="recommendations.html" class="active">Recommendations</a>
+        <button id="themeToggle" onclick="toggleTheme()" title="Switch Theme" style="background: rgba(51,51,51,0.1); border: none; padding: 0.6rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 0.95rem;">🌙 Dark</button>
+        <div class="user-menu">
+          <span id="userNameDisplay" class="user-name"></span>
+          <button id="logoutBtn" class="logout-button" onclick="logout()">Logout</button>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="container">
+    <section class="recommendations-section">
+      <div id="noRecommendations" class="no-recommendations">
+        <p>📝 No recommendations yet. <a href="quiz.html">Start the quiz here →</a></p>
+      </div>
+
+      <div id="recommendationsContent" style="display: none;">
+        <!-- Profile Summary -->
+        <div class="profile-summary">
+          <h1>✨ Your Personalized Skincare Profile</h1>
+          <div class="profile-info">
+            <div class="info-item">
+              <span class="label">Skin Type:</span>
+              <span id="profileSkinType" class="value"></span>
+            </div>
+            <div class="info-item">
+              <span class="label">Age Group:</span>
+              <span id="profileAgeGroup" class="value"></span>
+            </div>
+            <div class="info-item">
+              <span class="label">Main Concerns:</span>
+              <span id="profileConcerns" class="value"></span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Key Ingredients -->
+        <section class="ingredients-section">
+          <h2>🧪 Key Ingredients for You</h2>
+          <div id="ingredientsContainer"></div>
+        </section>
+
+        <!-- Product Categories -->
+        <section class="products-section">
+          <h2>🛍️ Product Categories to Look For</h2>
+          <div id="productsContainer"></div>
+        </section>
+
+        <!-- Morning Routine -->
+        <section class="routine-section">
+          <h2>🌅 Morning Routine</h2>
+          <div id="morningRoutineContainer"></div>
+        </section>
+
+        <!-- Night Routine -->
+        <section class="routine-section">
+          <h2>🌙 Night Routine</h2>
+          <div id="nightRoutineContainer"></div>
+        </section>
+
+        <!-- Safety Warnings -->
+        <section class="warnings-section">
+          <h2>⚠️ Safety Warnings & Tips</h2>
+          <div id="warningsContainer"></div>
+        </section>
+
+        <!-- Tips -->
+        <section class="tips-section">
+          <h2>💡 Personalized Tips</h2>
+          <div id="tipsContainer"></div>
+        </section>
+
+        <button class="reset-button" onclick="resetRecommendations()">← Back to Quiz</button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>🧴 Sereya - Your personalized skincare companion | Do a patch test before using new products</p>
+  </footer>
+
+  <script src="js/api.js"></script>
+  <script src="js/recommendations.js"></script>
+  <script>
+    // Check authentication on page load
+    window.addEventListener('load', function() {
+      const token = localStorage.getItem('authToken');
+      const user = localStorage.getItem('user');
+      
+      if (!token) {
+        // Not logged in, redirect to auth
+        window.location.href = 'auth.html';
+        return;
+      }
+
+      // Display user name
+      if (user) {
+        const userData = JSON.parse(user);
+        document.getElementById('userNameDisplay').textContent = `${userData.name}`;
+      }
+    });
+
+    function logout() {
+      if (confirm('Are you sure you want to logout?')) {
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('user');
+        localStorage.removeItem('quizData');
+        localStorage.removeItem('recommendations');
+        window.location.href = 'auth.html';
+      }
+    }
+  </script>
+</body>
+</html>
